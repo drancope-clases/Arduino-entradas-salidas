@@ -3,5 +3,5 @@ Si necesitas instalar **PlatformIO** en tu **VS Code**, puedes encontrar informa
 <quote>En este repositorio encontrarás una explicación de cómo conectar un **pulsador** (*push button*) un un **LED** a tu arduino y cómo escribir las instrucciones en el lenguaje C++ para que funcionen.</quote>
 
 ## El **LED** y su resistencia para limitar la corriente.
-
+.
 ## El Botón y sus dos posibilidades de configuración.
