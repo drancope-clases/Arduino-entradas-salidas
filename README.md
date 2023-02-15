@@ -28,8 +28,39 @@ De los 32 puntos de conexión, 22 de ellos son entradas o salidas (se pueden con
 
 Para conectar un LED (con su resistencia en serie) lo mejor es usar cualquiera de las verdes. Tenemos que decidir si conectamos el ánodo o el cátodo al *pin* verde, porque de una forma habrá que "encender" el pin para encender el diodo, y de la otra habrá que "apagar" el pin para lo mismo -esto se llama *lógica inversa*-.
 
-Lo más cómodo para realizar el cableado de los componentes es usar una **protoboard**. 
+Lo más cómodo para realizar el cableado de los componentes es usar una **protoboard**.
 
 (Foto real)
+
+## Instrucciones C++ para configurar y programar.
+La programación del LED utiliza dos funciones propias de la biblioteca de funciones del Arduino: **pinMode()** y **digitalWrite()**. Los parámetros son el *número de pin* y el *modo de configuración* en la primera, y el *número de pin* y el *estado* de salida en la segunda (encendido o apagado). Todo son números. Pero es más fácil usar *recordatorios* para esos números, que suelen estar predefinidos en las cabeceras de compilación.
+
+### Instrucción **digitalWrite()**. El lenguaje C++ y las *directivas de preprocesamiento*.
+Normalmente, el número 0 significa "apagado", y el 1 es "encendido". Así, si hemos conectado el pin positivo del diodo al pin 3 del Arduino, y ya hemos configurado este pin con la función digitalWrite(), entonces, encender es <code>digitalWrite(3, 1);</code> y apagarlo es <code>digitalWrite(3, 0);</code>.
+
+Pero en los programas largos, a veces es difícil comprender el funcionamiento de nuestro código si está lleno de números por todas partes. Por eso, se sustituye el 1 y el 0 por palabras que nos muestran mejor el significado de lo que hacemos. Esto se suele hacer con una *instrucción* ***#define*** que no forma parte del lenguaje C++, sino que el compilador la lee y hace una sustitución de la palabra por el número antes de convertir el texto de nuestro programa en *programa real*.
+
+Por ejemplo:
+```C++
+#define ENCENDIDO 1
+#define APAGADO 0
+
+digitalWrite(3, ENCENDIDO);
+delay(1000);
+digitalWrite(3, APAGADO);
+```
+
+Esto viene ya incluído en archivos especiales que se llaman ***cabeceras*** de compilación, en las bibliotecas de funciones de Arduino. Solamente tenemos que *incluir* estas cabeceras en nuestro programa, al principio:
+
+```C++
+#include <Arduino.h>
+```
+
+Dentro de este archivo podríamos ver escritas las siguientes líneas:
+```C++
+#define HIGH 1
+#define LOW 0
+```
+
 
 ## El Botón y sus dos posibilidades de configuración.
