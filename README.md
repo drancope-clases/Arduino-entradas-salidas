@@ -81,10 +81,10 @@ Dentro de este archivo podríamos ver escritas las siguientes líneas:
 #define HIGH 1
 #define LOW 0
 ```
-También existen líneas de definición para el modo de configuración de los pines, *entrada*, *salida* o *resistencia de acoplamento a positivo* (**INPUT**, **OUTPUT**, **INPUT_PULLUP**), de modo que no tendremos que aprendernos el número para cada modo. Así, nuestro programa deberá adoptar esta forma más correcta:
+También existen líneas de definición para el modo de configuración de los pines, *entrada*, *salida* o *resistencia de acoplamento a positivo* (**INPUT**, **OUTPUT**, **INPUT_PULLUP**. Más adelante las veremos), de modo que no tendremos que aprendernos el número para cada modo. Así, nuestro programa deberá adoptar esta forma más correcta:
 
 ```C++
-#dinclude <Ardhino.h>
+#include <Arduino.h>
 
 void setup(){
     pinMode(3, OUTPUT);
@@ -130,3 +130,41 @@ Para conectar el botón añadiendo nosotros la resistencia externa, debemos usar
 Para utilizar la resistencia interna del Arduino, usaremos:
 
 ```pinMode(PIN, INPUT_PULLUP);```
+
+Ambas se deben incluir dentro de la función ```setup()```.
+
+### La rutina de detección.
+
+Existen varias posibilidades para detectar cuándo se pulsa el botón. En líneas generales deberíamos hacer lo más independiente posible la deteción del pulsador del resto del programa. En el mundo real se suelen usar *interrupciones*, pero en nuestro ejemplo, que no es muy complicado, vamos a emplear un bloque corto de instrucciones al principio del bucle principal del programa. De manera normal sería:
+
+```c++
+void loop() {
+    while (digitalRead(PIN) == PULSADO) {
+        // hacer lo que tenga que hacer el botón
+        // evitar rebotes de pulsación
+    }
+    // resto del programa
+}
+```
+
+Debemos prestar atención a dos cosas: Primero, que dentro del bloque ```while```, lo que tenga que hacer el botón es alguna secuencia de instrucciones, preferiblemente concisa (clara y corta), pero también hay que añadir un pequeño retraso (```delay()```), para evitar un problema eléctrico de secuencias de conexión y desconexión que ocurre siempre en los primeros milisegundos, y que si no evitamos, hará el efecto de que hemos pulsado el botón un montón de veces. Segundo, que el resto del programa debe ser también lo más corto -rápido- posible, sin retrasos, para que no quede sin detectar una pulsación del botón mientras el controlador está haciendo otra cosa.
+
+la palabra ```PULSADO``` debemos definirla antes, y será **1** si usamos lógica positiva, o **0** si el botón está conectado a negativo.
+
+Lo habitual es utilizar algún tipo de señal (una variable, que pueda mantener su valor en sucesivas repeticiones del bucle) para que el resto del programa sepa que hemos pulsado el botón si es necesario. Así, nos quedaría:
+
+```c++
+#define PULSADO 0
+int estado = 0;
+
+void loop() {
+    while (digitalRead(PIN) == PULSADO) {
+        digitalWrite(LED, estado);
+        estado != estado;
+        delay(20);
+    }
+    // resto del programa
+}
+```
+
+En esta versión, la salida se enciende o apaga cada vez que pulsemos el botón. ```PIN``` y ```LED``` deben ser los números de los pines del Arduino en los que hemos conectado el botón y el diodo.
