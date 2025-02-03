@@ -21,7 +21,7 @@ Si sabemos la corriente necesaria para encender el diodo, podremos ajustar el va
 
 El voltaje que debe aguantar la resistencia es el voltaje de la pila menos el voltaje mínimo del diodo, que puede ser de aproximadamente 1 voltio, según el color del diodo. La corriente adecuada para un diodo está entre 10 y 20 miliamperios.
 
-Por lo tanto, cuando conectemos nuestro arduino, que tiene aproximadamente 5V, la resistencia será: R = 4V / 15mA = 266ØΩ. Con una resistencia de 220Ω se encenderá un poco más brillante. Con una resistencia de 330Ω, ahorraremos un poco de energía aunque se vea un poco menos el LED.
+Por lo tanto, cuando conectemos nuestro arduino, que tiene aproximadamente 5V, la resistencia será: R = 4V / 15mA = 266Ω. Con una resistencia de 220Ω se encenderá un poco más brillante. Con una resistencia de 330Ω, ahorraremos un poco de energía aunque se vea un poco menos el LED.
 
 Con una pila de 9 voltios, podríamos poner una resistencia del doble de valor.
 
